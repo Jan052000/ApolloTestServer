@@ -75,11 +75,11 @@ type OtherSource{
 }
 
 type Spells{
-    spell: [Spell]
+    spell: [Spell]!
 }
 
 type SpellList{
-    spells: [Spells]
+    spells: [Spells]!
 }
 
 type Query{

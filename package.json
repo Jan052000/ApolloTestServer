@@ -4,7 +4,8 @@
   "description": "Apollo test server für angular tests",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "author": "",
   "license": "MIT",
@@ -15,6 +16,11 @@
   "devDependencies": {
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
-    "typescript": "~4.5.2"
+    "typescript": "~4.5.2",
+    "@graphql-codegen/cli": "3.2.1",
+    "@graphql-codegen/client-preset": "^2.1.0",
+    "@graphql-codegen/typescript": "3.0.1",
+    "@graphql-codegen/typescript-resolvers": "3.1.0",
+    "@graphql-codegen/introspection": "3.0.1"
   }
 }
