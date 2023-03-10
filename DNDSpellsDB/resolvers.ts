@@ -38,31 +38,15 @@ const booksList = [
   { book: spellsaag, name: "SpellsAAG" },
 ];
 
-// function EditSpell(inputData: MutationInput): Response{
-//   let book: any = booksList.find(item => item.name == inputData.bookName)?.book
-//   if(book == undefined)
-//     return{
-//       message: "Book not found",
-//       success: false
-//     };
-//   let index = book.spell.findIndex((spelli: any) => spelli.name == inputData.spellName);
-//   if(index < 0)
-//     return{
-//       message: "Spell not found",
-//       success: false
-//     };
-//   let spellKeys = Object.keys(book.spell[index]);
-//   Object.keys(inputData.data).forEach(key => {
-//     if(spellKeys.find(spellKey => spellKey == key) != undefined){
-//       book!.spell[index][key] = inputData.data[key];
-//     }
-//   });
-//   return {
-//     message: "Mutation successful",
-//     success: true,
-//     data: book.spell[index]
-//   };
-// }
+function RecurseAndReplace(input: any, replacementData: any){
+  Object.keys(replacementData).forEach(key => {
+    if(typeof replacementData[key] == 'object'){
+      RecurseAndReplace(input[key], replacementData[key]);
+    }else{
+      input[key] = replacementData[key];
+    }
+  });
+}
 
 export const resolvers = {
   Query: {
@@ -122,12 +106,8 @@ export const resolvers = {
           message: "Spell not found",
           success: false,
         };
-      let spellKeys = Object.keys(book.spell[index]);
-      Object.keys(input.data.data).forEach((key) => {
-        if (spellKeys.find((spellKey) => spellKey == key) != undefined) {
-          book!.spell[index][key] = input.data.data[key];
-        }
-      });
+      let spell = book.spell[index];
+      RecurseAndReplace(spell, input.data.data);
       return {
         message: "Mutation successful",
         success: true,
